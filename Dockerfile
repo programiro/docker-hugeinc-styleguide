@@ -40,6 +40,11 @@ RUN sudo apt-get install -y ruby2.3 ruby2.3-dev
 # install compass
 RUN gem install --no-rdoc --no-ri compass
 
+# Add a yeoman user because grunt doesn't like being root
+RUN adduser --disabled-password --gecos "" yeoman; \
+  echo "yeoman ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+USER yeoman
+
 # install oh-my-zsh
 RUN sudo apt-get install -y zsh
 RUN sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
